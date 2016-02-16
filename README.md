@@ -1,1 +1,1 @@
-# API Blueprint repository
+# [API Blueprint](http://docs.mapybezbarier.apiary.io/)
