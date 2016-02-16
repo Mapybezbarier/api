@@ -1,0 +1,736 @@
+FORMAT: 1A
+HOST: https://mapybezbarier.cz
+
+# Mapy bez bariér
+API map přístupnosti mapybezbarier.cz slouží k exportu mapových objektů do formátu XML, JSON a CSV. Pro formát RDF je dostupný SPARQL endpoint.
+
+Přístup k API je kvótován vůči IP protistrany a to tak, že se protistrana může dotázat API maximálně jedenkrát za 10 vteřin. V případě překročení této kvóty je API vrácen HTTP návratový kód 403. 
+
+# Group Objekty
+Následuje popis zdrojů mapových objektů vztahujících se k *API map přístupnosti*.
+
+## Filtr objektů [/{locale}/api/v1/objects/{format}?category&#91;&#93;={category}&accessibility&#91;&#93;={accessibility}&type&#91;&#93;={type}&city={city}&city_part={city_part}&amp;region={region}&modified={modified}]
+
++ Parameters
+    + locale (required, string, `cs`) ... Jazyk jazykově závislých dat objektů. Možné hodnoty jsou `cs` nebo `en`.
+    + format (required, string, `json`) ... Formát výstupu vráceného API. Možné hodnoty jsou `json`, `xml` nebo `csv`.
+    + category (optional, array[string], `[TheatreObjectCategory, BasilicaObjectCategory, GalleryObjectCategory, DefensivecastleObjectCategory, TempleObjectCategory, CathedralObjectCategory, MonasteryObjectCategory, LibraryObjectCategory, ChurchObjectCategory, LorettaObjectCategory, MuseumObjectCategory, PalaceObjectCategory, MonumentObjectCategory, TownhallObjectCategory, SynagogueObjectCategory, FortressObjectCategory, TowerObjectCategory, StatelyhomeObjectCategory, OtherObjectCategory, DefensivecastleStatelyhomeObjectCategory, MuseumGalleryObjectCategory, MuseumLibraryObjectCategory, ChapelObjectCategory]`) ... Kategorie objektu. Hodnota může nabývat 1 až N hodnot z číselníku viz. příklad hodnot. Budou vráceny objekty, které mají přesnou shodu na kategorii.
+    + accessibility (optional, array[string], `[AccessibleObjectMKPO, PartlyAccessibleObjectMKPO, InAccessibleObjectMKPO]`) ... Přístupnost objektu. Hodnota může nabývat 1 až N hodnot z číselníku: `AccessibleObject` = přístupný, `PartlyAccessibleObject` = částečně přístupný, `InAccessibleObject` = nepřístupný. Budou vráceny objekty, které mají přesnou shodu na přístupnost.
+    + type (optional, array[string], `[certified, outdated, community]`) ... Typ mapových podkadů. Hodnota může nabývat 1 až N hodnot z číselníku: `certified` = profesionální data, `outdated` = profesionální, ale zastaralá data, `community` = komunitní data. Budou vráceny objekty, které spadají do klasifikace dle předchozího vymezení číselníkové hodnoty.
+    + city (optional, string, `Brno`) ... Město nebo obec objektu. Budou vráceny objekty, které mají přesnou shodu na město nebo obec.
+    + city_part (optional, string, `Bohunice`) ... Městská část objektu. Budou vráceny objekty, které mají přesnou shodu na městskou část.
+    + region (optional, string, `Jihomoravský kraj`) ... Region objektu. Budou vráceny objekty, které mají přesnou shodu na region.
+    + modified (optional, string, `2015-09-18T23:18:33`) ... Export dat pro konkrétní datum dle data poslední modifikace objektu. Budou vráceny objekty, které mají datum poslední modifikace větší nebo rovno tomuto datu. API očekává hodnotu ve formátu podle RFC3339.
+    
+
+### Získání mapových objektů podle filtrů v požadovaném formátu [GET]
+
++ Response 200 (application/json)
+    
+    + Parameters
+        + format = json  
+
+    + Body
+    
+            [
+              {
+                "sourceId": 100,
+                "objectId": 100,
+                "parentObjectId": 100,
+                "userId": 100,
+                "certified": false,
+                "photoUrl": "string",
+                "externalData": "string",
+                "title": "string",
+                "description": "string",
+                "license": "default",
+                "accessibility": "PartlyAccessibleObjectMKPO",
+                "organizationIc": "string",
+                "organizationName": "string",
+                "mappingDate": "2014-09-18T23:18:33",
+                "modifiedDate": "2006-08-19T19:27:14+02:00",
+                "objectType": "MuseumObjectCategory",
+                "objectTypeCustom": "string",
+                "longitude": 150.0,
+                "latitude": 150.0,
+                "ruianAddress": 100,
+                "zipcode": "string",
+                "region": "string",
+                "city": "string",
+                "cityPart": "string",
+                "street": "string",
+                "streetDescNo": 100,
+                "streetOrientNo": 100,
+                "streetOrientSymbol": "string",
+                "webUrl": "string",
+                "entrance1IsReservedParking": true,
+                "entrance1NumberOfReservedParking": 100,
+                "entrance1ReservedParkingLocalization": "string",
+                "entrance1ReservedParkingAccessDescription": "string",
+                "entrance1IsLongitudinalInclination": true,
+                "entrance1LongitudinalInclination": 150.0,
+                "entrance1LongitudinalInclinationLocalization": "string",
+                "entrance1IsTransverseInclination": false,
+                "entrance1TransverseInclination": 150.0,
+                "entrance1TransverseInclinationLocalization": "string",
+                "entrance1IsDifficultSurface": true,
+                "entrance1DifficultSurfaceDescription": "string",
+                "entrance1Guidingline": "NaturalArtificialEntranceGuidingline",
+                "entrance1Accessibility": "RampEntranceAccessibility",
+                "entrance1AreaBeforeDoorWidth": 100,
+                "entrance1AreaBeforeDoorDepth": 100,
+                "entrance1LobbyWidth": 100,
+                "entrance1LobbyDepth": 100,
+                "entrance1IsAOB": false,
+                "entrance1AobIsAboveDoor": false,
+                "entrance1AobLocalization": "string",
+                "entrance1HasDescription": "string",
+                "entrance1HasNotes": "string",
+                "entrance1BellType": "RingonlyBellType",
+                "entrance1BellHeight": 100,
+                "entrance1BellIndentation": 100,
+                "entrance1Steps1NumberOf": 100,
+                "entrance1Steps1Height": 50,
+                "entrance1Steps1Depth": 100,
+                "entrance1Steps2NumberOf": 100,
+                "entrance1Steps2Height": 50,
+                "entrance1Steps2Depth": 100,
+                "entrance1ContrastMarkingIsGlassSurfaces": true,
+                "entrance1ContrastMarkingLocalization": "TopContrastMarkingLocalization",
+                "entrance1StepsIsContrastMarked": false,
+                "entrance1Door1MainpanelWidth": 100,
+                "entrance1Door1SidepanelWidth": 100,
+                "entrance1Door1Type": "DoublepanelledDoorType",
+                "entrance1Door1Opening": "MechanicalDoorOpening",
+                "entrance1Door1OpeningDirection": "InwardsDoorOpeningDirection",
+                "entrance1Door1StepHeight": 50,
+                "entrance1Door2MainpanelWidth": 100,
+                "entrance1Door2SidepanelWidth": 100,
+                "entrance1Door2Type": "CarouselDoorType",
+                "entrance1Door2Opening": "SlidingDoorOpening",
+                "entrance1Door2OpeningDirection": "OnesideDoorOpeningDirection",
+                "entrance1Door2StepHeight": 50,
+                "entrance2IsSideEntranceMarked": true,
+                "entrance2IsSideEntranceInformation": false,
+                "entrance2Localization": "string",
+                "entrance2Access": "LockedMappableEntityAccess",
+                "entrance2AccessProvidedBy": "string",
+                "entrance2IsReservedParking": false,
+                "entrance2NumberOfReservedParking": 100,
+                "entrance2ReservedParkingLocalization": "string",
+                "entrance2ReservedParkingAccessDescription": "string",
+                "entrance2IsLongitudinalInclination": false,
+                "entrance2LongitudinalInclination": 150.0,
+                "entrance2LongitudinalInclinationLocalization": "string",
+                "entrance2IsTransverseInclination": true,
+                "entrance2TransverseInclination": 150.0,
+                "entrance2TransverseInclinationLocalization": "string",
+                "entrance2IsDifficultSurface": true,
+                "entrance2DifficultSurfaceDescription": "string",
+                "entrance2Guidingline": "NaturalArtificialEntranceGuidingline",
+                "entrance2Accessibility": "RampEntranceAccessibility",
+                "entrance2AreaBeforeDoorWidth": 100,
+                "entrance2AreaBeforeDoorDepth": 100,
+                "entrance2LobbyWidth": 100,
+                "entrance2LobbyDepth": 100,
+                "entrance2IsAOB": false,
+                "entrance2AobIsAboveDoor": true,
+                "entrance2AobLocalization": "string",
+                "entrance2HasDescription": "string",
+                "entrance2HasNotes": "string",
+                "entrance2BellType": "MissingBellType",
+                "entrance2BellHeight": 100,
+                "entrance2BellIndentation": 100,
+                "entrance2Steps1NumberOf": 100,
+                "entrance2Steps1Height": 50,
+                "entrance2Steps1Depth": 100,
+                "entrance2Steps2NumberOf": 100,
+                "entrance2Steps2Height": 50,
+                "entrance2Steps2Depth": 100,
+                "entrance2ContrastMarkingIsGlassSurfaces": false,
+                "entrance2ContrastMarkingLocalization": "TopContrastMarkingLocalization",
+                "entrance2StepsIsContrastMarked": false,
+                "entrance2Door1MainpanelWidth": 100,
+                "entrance2Door1SidepanelWidth": 100,
+                "entrance2Door1Type": "SinglepanelledDoorType",
+                "entrance2Door1Opening": "MechanicalDoorOpening",
+                "entrance2Door1OpeningDirection": "OnesideDoorOpeningDirection",
+                "entrance2Door1StepHeight": 50,
+                "entrance2Door2MainpanelWidth": 100,
+                "entrance2Door2SidepanelWidth": 100,
+                "entrance2Door2Type": "SinglepanelledDoorType",
+                "entrance2Door2Opening": "MechanicalDoorOpening",
+                "entrance2Door2OpeningDirection": "SidesDoorOpeningDirection",
+                "entrance2Door2StepHeight": 50,
+                "objectIsSteps": false,
+                "objectSteps1NumberOf": 100,
+                "objectSteps1Height": 50,
+                "objectSteps1Depth": 100,
+                "objectSteps1Localization": "string",
+                "objectIsStairs": true,
+                "objectStairsType": "DirectObjectStairsType",
+                "objectStairsWidth": 100,
+                "objectStairsIsBannister": true,
+                "objectIsNarrowedPassage": true,
+                "objectNarrowedPassageWidth": 100,
+                "objectNarrowedPassageLocalization": "string",
+                "objectIsTourniquet": false,
+                "objectTourniquetLocalization": "string",
+                "objectIsNavigationSystem": false,
+                "objectNavigationSystemDescription": "string",
+                "objectInteriorAccessibility": "InaccessibleObjectInteriorAccessibility",
+                "objectHasDescription": "string",
+                "objectHasNotes": "string",
+                "objectContrastMarkingIsGlassSurfaces": false,
+                "objectContrastMarkingLocalization": "BottomContrastMarkingLocalization",
+                "objectStepsIsContrastMarked": true,
+                "objectIsAOB": false,
+                "objectAobIsAboveDoor": true,
+                "objectAobLocalization": "string",
+                "rampskids": [
+                  {
+                    "rampRelation": "mainEntrance",
+                    "rampLocalization": "EntranceRampSkidsLocalization",
+                    "rampInteriorLocalization": "string",
+                    "rampMobility": "FixedRampSkidsMobility",
+                    "rampAccessProvidedBy": "string",
+                    "rampType": "DirectRampType",
+                    "rampNumberOfLegs": 100,
+                    "rampleg1Width": 100,
+                    "rampleg1Length": 100,
+                    "rampleg1Inclination": 150.0,
+                    "rampleg2Width": 100,
+                    "rampleg2Length": 100,
+                    "rampleg2Inclination": 150.0,
+                    "rampleg3Width": 100,
+                    "rampleg3Length": 100,
+                    "rampleg3Inclination": 150.0,
+                    "rampleg4Width": 100,
+                    "rampleg4Length": 100,
+                    "rampleg4Inclination": 150.0,
+                    "rampBottomEntryareaWidth": 100,
+                    "rampBottomEntryareaDepth": 100,
+                    "rampTopEntryareaWidth": 100,
+                    "rampTopEntryareaDepth": 100,
+                    "rampLandingsEntryareaWidth": 100,
+                    "rampLandingsEntryareaDepth": 100,
+                    "rampSurface": "SlipperyRampSurface",
+                    "rampIsHandle": true,
+                    "rampHandleOrientation": "SidewallHandleLocalization",
+                    "rampHandle1Height": 100,
+                    "rampHandle2Height": 100,
+                    "skidsLocalization": "InteriorRampSkidsLocalization",
+                    "skidsInteriorLocalization": "string",
+                    "skidsMobility": "MobileRampSkidsMobility",
+                    "skidsInclination": 150.0,
+                    "skidsLength": 100,
+                    "rampSkidsHasNotes": "string",
+                    "rampSkidsHasDescription": "string"
+                  }
+                ],
+                "platform": [
+                  {
+                    "platformRelation": "mainEntrance",
+                    "platformLocalization": "string",
+                    "platformAccess": "LockedMappableEntityAccess",
+                    "platformType": "VerticalPlatformType",
+                    "platformMaxLoad": 100,
+                    "platformWidth": 100,
+                    "platformDepth": 100,
+                    "platformIsMinParameters": true,
+                    "platformNumberOfSteps": 100,
+                    "platformNumberOfFloors": 100,
+                    "platformOutsideBottomControlHeight": 100,
+                    "platformOutsideTopControlHeight": 100,
+                    "platformInsideControlHeight": 100,
+                    "platformHasNotes": "string",
+                    "platformHasDescription": "string",
+                    "entryarea1Entry": "SideEntryareaEntry",
+                    "entryarea1IsEntryClosing": true,
+                    "entryarea1EntryWidth": 100,
+                    "entryarea1Width": 100,
+                    "entryarea1Depth": 100,
+                    "entryarea1HeightElevation": 100,
+                    "entryarea1BellType": "IntercomBellType",
+                    "entryarea1BellHeight": 100,
+                    "entryarea1BellIndentation": 100,
+                    "entryarea2Entry": "SideEntryareaEntry",
+                    "entryarea2IsEntryClosing": true,
+                    "entryarea2EntryWidth": 100,
+                    "entryarea2Width": 100,
+                    "entryarea2Depth": 100,
+                    "entryarea2HeightElevation": 100,
+                    "entryarea2BellType": "MissingBellType",
+                    "entryarea2BellHeight": 100,
+                    "entryarea2BellIndentation": 100
+                  }
+                ],
+                "elevator": [
+                  {
+                    "elevatorLocalization": "string",
+                    "elevatorAccess": "LockedMappableEntityAccess",
+                    "elevatorType": "PersonalElevatorType",
+                    "elevatorAccessProvidedBy": "string",
+                    "elevatorConnectsFloors": "string",
+                    "elevatorDriveoff": "MezzaninesElevatorDriveoff",
+                    "elevatorControl1MaxHeight": 100,
+                    "elevatorControl1ReliefMarking": "ProtrudingElevatorControlReliefMarking",
+                    "elevatorControl1FlatMarking": "GraphicElevatorControlFlatMarking",
+                    "elevatorIsControl1BrailleMarking": true,
+                    "elevatorIsAOB": true,
+                    "elevatorAobIsAboveDoor": false,
+                    "elevatorAobLocalization": "string",
+                    "elevatorAOBAnnouncementsScheme": "PhraseAOBAnnouncement",
+                    "elevatorIsCagePassthrough": false,
+                    "elevatorCageWidth": 100,
+                    "elevatorCageDepth": 100,
+                    "elevatorCageSeconddoorLocalization": "FrontElevatorCageSeconddoorLocalization",
+                    "elevatorCageControlDistance": 100,
+                    "elevatorCageControlHeight": 100,
+                    "elevatorControl2ReliefMarking": "EngravedElevatorControlReliefMarking",
+                    "elevatorControl2FlatMarking": "DigitalElevatorControlFlatMarking",
+                    "elevatorIsControl2BrailleMarking": false,
+                    "elevatorIsCageControlAnnouncementAcoustic": false,
+                    "elevatorIsCageControlAnnouncementPhonetic": false,
+                    "elevatorIsCageHandle": false,
+                    "elevatorHandleLocalization": "SidewallsHandleLocalization",
+                    "elevatorIsCageMirror": true,
+                    "elevatorCageMirrorLocalization": "FrontwallElevatorCageMirrorLocalization",
+                    "elevatorCageMirrorHeight": 100,
+                    "elevatorIsCageSeat": true,
+                    "elevatorIsCageSeatWithinreach": true,
+                    "elevatorIsCageSeatFunctional": false,
+                    "elevatorHasNotes": "string",
+                    "elevatorHasDescription": "string",
+                    "entryareaWidth": 100,
+                    "entryareaDepth": 100,
+                    "entryareaHeightElevation": 100,
+                    "door1Width": 100,
+                    "door1Opening": "AutomaticDoorOpening",
+                    "door2Width": 100,
+                    "door2Opening": "AutomaticDoorOpening"
+                  }
+                ],
+                "wc": [
+                  {
+                    "wcAccessibility": "AccessibleWCMKPO",
+                    "wcLocalization": "string",
+                    "wcAccessProvidedBy": "string",
+                    "wcCabinAccess": "FreelyaccessibleMappableEntityAccess",
+                    "wcCabinLocalization": "GentsWCCabinLocalization",
+                    "wcSwitch": "MissingWCSwitch",
+                    "wcSwitchHeight": 100,
+                    "wcCabinWidth": 140,
+                    "wcCabinDepth": 100,
+                    "wcFlushingBackHeight": 100,
+                    "wcFlushingSideHeight": 100,
+                    "wcFlushingSideDistanc": 100,
+                    "wcFlushing": "MechanicalWCFlushing",
+                    "wcFlushingDifficulty": "DifficultWCFlushingDifficulty",
+                    "wcHandlesDistance": 100,
+                    "wcBasinLeftDistance": 100,
+                    "wcBasinRightDistance": 100,
+                    "wcBasinBackIndentation": 100,
+                    "wcBasinSeatHeight": 100,
+                    "wcBasinIsPaperReach": false,
+                    "wcBasinSpace": "BlockedbyfixedWCBasinSpace",
+                    "wcIsChangingdesk": false,
+                    "wcIsChangingdeskObstructs": true,
+                    "wcChangingdesk": "MobileWCChangingdesk",
+                    "wcIsAlarmbutton": true,
+                    "wcAlarmbuttonTopHeigh": 100,
+                    "wcAlarmbuttonBottomHeight": 100,
+                    "wcIsRegularWC": true,
+                    "wcIsRegularWCBrailleMarking": true,
+                    "wcCabinDoorDisposition": "LeftBottomWCCabinDisposition",
+                    "wcCabinWCBasinDisposition": "TopRightWCCabinDisposition",
+                    "wcCabinWashBasinDisposition": "LeftTopWCCabinDisposition",
+                    "wcHasNotes": "string",
+                    "wcHasDescription": "string",
+                    "hallway1Width": 100,
+                    "hallway1Depth": 100,
+                    "hallway1DoorWidth": 100,
+                    "hallway1DoorMarking": "DoorIsNotMarking",
+                    "hallway2Width": 100,
+                    "hallway2Depth": 100,
+                    "hallway2DoorWidth": 100,
+                    "hallway2DoorMarking": "DoorIsMarking",
+                    "handle1Type": "FoldingHandleType",
+                    "handle1Height": 100,
+                    "handle1Length": 100,
+                    "handle2Type": "FixedHandleType",
+                    "handle2Height": 100,
+                    "handle2Length": 100,
+                    "doorWidth": 100,
+                    "doorOpeningDirection": "InwardsDoorOpeningDirection",
+                    "doorIsMarking": true,
+                    "doorHandlePosition": "OutsideHandlePosition",
+                    "washbasinHeight": 100,
+                    "washbasinUnderpass": "SufficientWashbasinUnderpass",
+                    "washbasinIsHandle": true,
+                    "washbasinHandleType": "HorizontalHandleOrientation",
+                    "washbasinHandleHeight": 100,
+                    "washbasinHandleLength": 100,
+                    "tapHeight": 100,
+                    "tapType": "TouchfreeTap"
+                  }
+                ]
+              }
+            ]
+
+        
++ Response 200 (application/xml)
+
+    + Parameters
+        + format = xml  
+        
+    + Body
+    
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+            <objects xmlns="http://mapybezbarier.cz/XMLSchema">
+                <object>
+                    <sourceId>100</sourceId>
+                    <objectId>100</objectId>
+                    <parentObjectId>100</parentObjectId>
+                    <userId>100</userId>
+                    <certified>false</certified>
+                    <photoUrl>string</photoUrl>
+                    <externalData>string</externalData>
+                    <title>string</title>
+                    <description>string</description>
+                    <license>default</license>
+                    <accessibility>PartlyAccessibleObjectMKPO</accessibility>
+                    <organizationIc>string</organizationIc>
+                    <organizationName>string</organizationName>
+                    <mappingDate>2014-09-19T01:18:33</mappingDate>
+                    <modifiedDate>2006-08-19T19:27:14+02:00</modifiedDate>
+                    <objectType>MuseumObjectCategory</objectType>
+                    <objectTypeCustom>string</objectTypeCustom>
+                    <longitude>150.0</longitude>
+                    <latitude>150.0</latitude>
+                    <ruianAddress>100</ruianAddress>
+                    <zipcode>string</zipcode>
+                    <region>string</region>
+                    <city>string</city>
+                    <cityPart>string</cityPart>
+                    <street>string</street>
+                    <streetDescNo>100</streetDescNo>
+                    <streetOrientNo>100</streetOrientNo>
+                    <streetOrientSymbol>string</streetOrientSymbol>
+                    <webUrl>string</webUrl>
+                    <entrance1IsReservedParking>true</entrance1IsReservedParking>
+                    <entrance1NumberOfReservedParking>100</entrance1NumberOfReservedParking>
+                    <entrance1ReservedParkingLocalization>string</entrance1ReservedParkingLocalization>
+                    <entrance1ReservedParkingAccessDescription>string</entrance1ReservedParkingAccessDescription>
+                    <entrance1IsLongitudinalInclination>true</entrance1IsLongitudinalInclination>
+                    <entrance1LongitudinalInclination>150.0</entrance1LongitudinalInclination>
+                    <entrance1LongitudinalInclinationLocalization>string</entrance1LongitudinalInclinationLocalization>
+                    <entrance1IsTransverseInclination>false</entrance1IsTransverseInclination>
+                    <entrance1TransverseInclination>150.0</entrance1TransverseInclination>
+                    <entrance1TransverseInclinationLocalization>string</entrance1TransverseInclinationLocalization>
+                    <entrance1IsDifficultSurface>true</entrance1IsDifficultSurface>
+                    <entrance1DifficultSurfaceDescription>string</entrance1DifficultSurfaceDescription>
+                    <entrance1Guidingline>NaturalArtificialEntranceGuidingline</entrance1Guidingline>
+                    <entrance1Accessibility>RampEntranceAccessibility</entrance1Accessibility>
+                    <entrance1AreaBeforeDoorWidth>100</entrance1AreaBeforeDoorWidth>
+                    <entrance1AreaBeforeDoorDepth>100</entrance1AreaBeforeDoorDepth>
+                    <entrance1LobbyWidth>100</entrance1LobbyWidth>
+                    <entrance1LobbyDepth>100</entrance1LobbyDepth>
+                    <entrance1IsAOB>false</entrance1IsAOB>
+                    <entrance1AobIsAboveDoor>false</entrance1AobIsAboveDoor>
+                    <entrance1AobLocalization>string</entrance1AobLocalization>
+                    <entrance1HasDescription>string</entrance1HasDescription>
+                    <entrance1HasNotes>string</entrance1HasNotes>
+                    <entrance1BellType>RingonlyBellType</entrance1BellType>
+                    <entrance1BellHeight>100</entrance1BellHeight>
+                    <entrance1BellIndentation>100</entrance1BellIndentation>
+                    <entrance1Steps1NumberOf>100</entrance1Steps1NumberOf>
+                    <entrance1Steps1Height>50</entrance1Steps1Height>
+                    <entrance1Steps1Depth>100</entrance1Steps1Depth>
+                    <entrance1Steps2NumberOf>100</entrance1Steps2NumberOf>
+                    <entrance1Steps2Height>50</entrance1Steps2Height>
+                    <entrance1Steps2Depth>100</entrance1Steps2Depth>
+                    <entrance1ContrastMarkingIsGlassSurfaces>true</entrance1ContrastMarkingIsGlassSurfaces>
+                    <entrance1ContrastMarkingLocalization>TopContrastMarkingLocalization</entrance1ContrastMarkingLocalization>
+                    <entrance1StepsIsContrastMarked>false</entrance1StepsIsContrastMarked>
+                    <entrance1Door1MainpanelWidth>100</entrance1Door1MainpanelWidth>
+                    <entrance1Door1SidepanelWidth>100</entrance1Door1SidepanelWidth>
+                    <entrance1Door1Type>DoublepanelledDoorType</entrance1Door1Type>
+                    <entrance1Door1Opening>MechanicalDoorOpening</entrance1Door1Opening>
+                    <entrance1Door1OpeningDirection>InwardsDoorOpeningDirection</entrance1Door1OpeningDirection>
+                    <entrance1Door1StepHeight>50</entrance1Door1StepHeight>
+                    <entrance1Door2MainpanelWidth>100</entrance1Door2MainpanelWidth>
+                    <entrance1Door2SidepanelWidth>100</entrance1Door2SidepanelWidth>
+                    <entrance1Door2Type>CarouselDoorType</entrance1Door2Type>
+                    <entrance1Door2Opening>SlidingDoorOpening</entrance1Door2Opening>
+                    <entrance1Door2OpeningDirection>OnesideDoorOpeningDirection</entrance1Door2OpeningDirection>
+                    <entrance1Door2StepHeight>50</entrance1Door2StepHeight>
+                    <entrance2IsSideEntranceMarked>true</entrance2IsSideEntranceMarked>
+                    <entrance2IsSideEntranceInformation>false</entrance2IsSideEntranceInformation>
+                    <entrance2Localization>string</entrance2Localization>
+                    <entrance2Access>LockedMappableEntityAccess</entrance2Access>
+                    <entrance2AccessProvidedBy>string</entrance2AccessProvidedBy>
+                    <entrance2IsReservedParking>false</entrance2IsReservedParking>
+                    <entrance2NumberOfReservedParking>100</entrance2NumberOfReservedParking>
+                    <entrance2ReservedParkingLocalization>string</entrance2ReservedParkingLocalization>
+                    <entrance2ReservedParkingAccessDescription>string</entrance2ReservedParkingAccessDescription>
+                    <entrance2IsLongitudinalInclination>false</entrance2IsLongitudinalInclination>
+                    <entrance2LongitudinalInclination>150.0</entrance2LongitudinalInclination>
+                    <entrance2LongitudinalInclinationLocalization>string</entrance2LongitudinalInclinationLocalization>
+                    <entrance2IsTransverseInclination>true</entrance2IsTransverseInclination>
+                    <entrance2TransverseInclination>150.0</entrance2TransverseInclination>
+                    <entrance2TransverseInclinationLocalization>string</entrance2TransverseInclinationLocalization>
+                    <entrance2IsDifficultSurface>true</entrance2IsDifficultSurface>
+                    <entrance2DifficultSurfaceDescription>string</entrance2DifficultSurfaceDescription>
+                    <entrance2Guidingline>NaturalArtificialEntranceGuidingline</entrance2Guidingline>
+                    <entrance2Accessibility>RampEntranceAccessibility</entrance2Accessibility>
+                    <entrance2AreaBeforeDoorWidth>100</entrance2AreaBeforeDoorWidth>
+                    <entrance2AreaBeforeDoorDepth>100</entrance2AreaBeforeDoorDepth>
+                    <entrance2LobbyWidth>100</entrance2LobbyWidth>
+                    <entrance2LobbyDepth>100</entrance2LobbyDepth>
+                    <entrance2IsAOB>false</entrance2IsAOB>
+                    <entrance2AobIsAboveDoor>true</entrance2AobIsAboveDoor>
+                    <entrance2AobLocalization>string</entrance2AobLocalization>
+                    <entrance2HasDescription>string</entrance2HasDescription>
+                    <entrance2HasNotes>string</entrance2HasNotes>
+                    <entrance2BellType>MissingBellType</entrance2BellType>
+                    <entrance2BellHeight>100</entrance2BellHeight>
+                    <entrance2BellIndentation>100</entrance2BellIndentation>
+                    <entrance2Steps1NumberOf>100</entrance2Steps1NumberOf>
+                    <entrance2Steps1Height>50</entrance2Steps1Height>
+                    <entrance2Steps1Depth>100</entrance2Steps1Depth>
+                    <entrance2Steps2NumberOf>100</entrance2Steps2NumberOf>
+                    <entrance2Steps2Height>50</entrance2Steps2Height>
+                    <entrance2Steps2Depth>100</entrance2Steps2Depth>
+                    <entrance2ContrastMarkingIsGlassSurfaces>false</entrance2ContrastMarkingIsGlassSurfaces>
+                    <entrance2ContrastMarkingLocalization>TopContrastMarkingLocalization</entrance2ContrastMarkingLocalization>
+                    <entrance2StepsIsContrastMarked>false</entrance2StepsIsContrastMarked>
+                    <entrance2Door1MainpanelWidth>100</entrance2Door1MainpanelWidth>
+                    <entrance2Door1SidepanelWidth>100</entrance2Door1SidepanelWidth>
+                    <entrance2Door1Type>SinglepanelledDoorType</entrance2Door1Type>
+                    <entrance2Door1Opening>MechanicalDoorOpening</entrance2Door1Opening>
+                    <entrance2Door1OpeningDirection>OnesideDoorOpeningDirection</entrance2Door1OpeningDirection>
+                    <entrance2Door1StepHeight>50</entrance2Door1StepHeight>
+                    <entrance2Door2MainpanelWidth>100</entrance2Door2MainpanelWidth>
+                    <entrance2Door2SidepanelWidth>100</entrance2Door2SidepanelWidth>
+                    <entrance2Door2Type>SinglepanelledDoorType</entrance2Door2Type>
+                    <entrance2Door2Opening>MechanicalDoorOpening</entrance2Door2Opening>
+                    <entrance2Door2OpeningDirection>SidesDoorOpeningDirection</entrance2Door2OpeningDirection>
+                    <entrance2Door2StepHeight>50</entrance2Door2StepHeight>
+                    <objectIsSteps>false</objectIsSteps>
+                    <objectSteps1NumberOf>100</objectSteps1NumberOf>
+                    <objectSteps1Height>50</objectSteps1Height>
+                    <objectSteps1Depth>100</objectSteps1Depth>
+                    <objectSteps1Localization>string</objectSteps1Localization>
+                    <objectIsStairs>true</objectIsStairs>
+                    <objectStairsType>DirectObjectStairsType</objectStairsType>
+                    <objectStairsWidth>100</objectStairsWidth>
+                    <objectStairsIsBannister>true</objectStairsIsBannister>
+                    <objectIsNarrowedPassage>true</objectIsNarrowedPassage>
+                    <objectNarrowedPassageWidth>100</objectNarrowedPassageWidth>
+                    <objectNarrowedPassageLocalization>string</objectNarrowedPassageLocalization>
+                    <objectIsTourniquet>false</objectIsTourniquet>
+                    <objectTourniquetLocalization>string</objectTourniquetLocalization>
+                    <objectIsNavigationSystem>false</objectIsNavigationSystem>
+                    <objectNavigationSystemDescription>string</objectNavigationSystemDescription>
+                    <objectInteriorAccessibility>InaccessibleObjectInteriorAccessibility</objectInteriorAccessibility>
+                    <objectHasDescription>string</objectHasDescription>
+                    <objectHasNotes>string</objectHasNotes>
+                    <objectContrastMarkingIsGlassSurfaces>false</objectContrastMarkingIsGlassSurfaces>
+                    <objectContrastMarkingLocalization>BottomContrastMarkingLocalization</objectContrastMarkingLocalization>
+                    <objectStepsIsContrastMarked>true</objectStepsIsContrastMarked>
+                    <objectIsAOB>false</objectIsAOB>
+                    <objectAobIsAboveDoor>true</objectAobIsAboveDoor>
+                    <objectAobLocalization>string</objectAobLocalization>
+                    <rampskids>
+                        <rampRelation>mainEntrance</rampRelation>
+                        <rampLocalization>EntranceRampSkidsLocalization</rampLocalization>
+                        <rampInteriorLocalization>string</rampInteriorLocalization>
+                        <rampMobility>FixedRampSkidsMobility</rampMobility>
+                        <rampAccessProvidedBy>string</rampAccessProvidedBy>
+                        <rampType>DirectRampType</rampType>
+                        <rampNumberOfLegs>100</rampNumberOfLegs>
+                        <rampleg1Width>100</rampleg1Width>
+                        <rampleg1Length>100</rampleg1Length>
+                        <rampleg1Inclination>150.0</rampleg1Inclination>
+                        <rampleg2Width>100</rampleg2Width>
+                        <rampleg2Length>100</rampleg2Length>
+                        <rampleg2Inclination>150.0</rampleg2Inclination>
+                        <rampleg3Width>100</rampleg3Width>
+                        <rampleg3Length>100</rampleg3Length>
+                        <rampleg3Inclination>150.0</rampleg3Inclination>
+                        <rampleg4Width>100</rampleg4Width>
+                        <rampleg4Length>100</rampleg4Length>
+                        <rampleg4Inclination>150.0</rampleg4Inclination>
+                        <rampBottomEntryareaWidth>100</rampBottomEntryareaWidth>
+                        <rampBottomEntryareaDepth>100</rampBottomEntryareaDepth>
+                        <rampTopEntryareaWidth>100</rampTopEntryareaWidth>
+                        <rampTopEntryareaDepth>100</rampTopEntryareaDepth>
+                        <rampLandingsEntryareaWidth>100</rampLandingsEntryareaWidth>
+                        <rampLandingsEntryareaDepth>100</rampLandingsEntryareaDepth>
+                        <rampSurface>SlipperyRampSurface</rampSurface>
+                        <rampIsHandle>true</rampIsHandle>
+                        <rampHandleOrientation>SidewallHandleLocalization</rampHandleOrientation>
+                        <rampHandle1Height>100</rampHandle1Height>
+                        <rampHandle2Height>100</rampHandle2Height>
+                        <skidsLocalization>InteriorRampSkidsLocalization</skidsLocalization>
+                        <skidsInteriorLocalization>string</skidsInteriorLocalization>
+                        <skidsMobility>MobileRampSkidsMobility</skidsMobility>
+                        <skidsInclination>150.0</skidsInclination>
+                        <skidsLength>100</skidsLength>
+                        <rampSkidsHasNotes>string</rampSkidsHasNotes>
+                        <rampSkidsHasDescription>string</rampSkidsHasDescription>
+                    </rampskids>
+                    <platform>
+                        <platformRelation>mainEntrance</platformRelation>
+                        <platformLocalization>string</platformLocalization>
+                        <platformAccess>LockedMappableEntityAccess</platformAccess>
+                        <platformType>VerticalPlatformType</platformType>
+                        <platformMaxLoad>100</platformMaxLoad>
+                        <platformWidth>100</platformWidth>
+                        <platformDepth>100</platformDepth>
+                        <platformIsMinParameters>true</platformIsMinParameters>
+                        <platformNumberOfSteps>100</platformNumberOfSteps>
+                        <platformNumberOfFloors>100</platformNumberOfFloors>
+                        <platformOutsideBottomControlHeight>100</platformOutsideBottomControlHeight>
+                        <platformOutsideTopControlHeight>100</platformOutsideTopControlHeight>
+                        <platformInsideControlHeight>100</platformInsideControlHeight>
+                        <platformHasNotes>string</platformHasNotes>
+                        <platformHasDescription>string</platformHasDescription>
+                        <entryarea1Entry>SideEntryareaEntry</entryarea1Entry>
+                        <entryarea1IsEntryClosing>true</entryarea1IsEntryClosing>
+                        <entryarea1EntryWidth>100</entryarea1EntryWidth>
+                        <entryarea1Width>100</entryarea1Width>
+                        <entryarea1Depth>100</entryarea1Depth>
+                        <entryarea1HeightElevation>100</entryarea1HeightElevation>
+                        <entryarea1BellType>IntercomBellType</entryarea1BellType>
+                        <entryarea1BellHeight>100</entryarea1BellHeight>
+                        <entryarea1BellIndentation>100</entryarea1BellIndentation>
+                        <entryarea2Entry>SideEntryareaEntry</entryarea2Entry>
+                        <entryarea2IsEntryClosing>true</entryarea2IsEntryClosing>
+                        <entryarea2EntryWidth>100</entryarea2EntryWidth>
+                        <entryarea2Width>100</entryarea2Width>
+                        <entryarea2Depth>100</entryarea2Depth>
+                        <entryarea2HeightElevation>100</entryarea2HeightElevation>
+                        <entryarea2BellType>MissingBellType</entryarea2BellType>
+                        <entryarea2BellHeight>100</entryarea2BellHeight>
+                        <entryarea2BellIndentation>100</entryarea2BellIndentation>
+                    </platform>
+                    <elevator>
+                        <elevatorLocalization>string</elevatorLocalization>
+                        <elevatorAccess>LockedMappableEntityAccess</elevatorAccess>
+                        <elevatorType>PersonalElevatorType</elevatorType>
+                        <elevatorAccessProvidedBy>string</elevatorAccessProvidedBy>
+                        <elevatorConnectsFloors>string</elevatorConnectsFloors>
+                        <elevatorDriveoff>MezzaninesElevatorDriveoff</elevatorDriveoff>
+                        <elevatorControl1MaxHeight>100</elevatorControl1MaxHeight>
+                        <elevatorControl1ReliefMarking>ProtrudingElevatorControlReliefMarking</elevatorControl1ReliefMarking>
+                        <elevatorControl1FlatMarking>GraphicElevatorControlFlatMarking</elevatorControl1FlatMarking>
+                        <elevatorIsControl1BrailleMarking>true</elevatorIsControl1BrailleMarking>
+                        <elevatorIsAOB>true</elevatorIsAOB>
+                        <elevatorAobIsAboveDoor>false</elevatorAobIsAboveDoor>
+                        <elevatorAobLocalization>string</elevatorAobLocalization>
+                        <elevatorAOBAnnouncementsScheme>PhraseAOBAnnouncement</elevatorAOBAnnouncementsScheme>
+                        <elevatorIsCagePassthrough>false</elevatorIsCagePassthrough>
+                        <elevatorCageWidth>100</elevatorCageWidth>
+                        <elevatorCageDepth>100</elevatorCageDepth>
+                        <elevatorCageSeconddoorLocalization>FrontElevatorCageSeconddoorLocalization</elevatorCageSeconddoorLocalization>
+                        <elevatorCageControlDistance>100</elevatorCageControlDistance>
+                        <elevatorCageControlHeight>100</elevatorCageControlHeight>
+                        <elevatorControl2ReliefMarking>EngravedElevatorControlReliefMarking</elevatorControl2ReliefMarking>
+                        <elevatorControl2FlatMarking>DigitalElevatorControlFlatMarking</elevatorControl2FlatMarking>
+                        <elevatorIsControl2BrailleMarking>false</elevatorIsControl2BrailleMarking>
+                        <elevatorIsCageControlAnnouncementAcoustic>false</elevatorIsCageControlAnnouncementAcoustic>
+                        <elevatorIsCageControlAnnouncementPhonetic>false</elevatorIsCageControlAnnouncementPhonetic>
+                        <elevatorIsCageHandle>false</elevatorIsCageHandle>
+                        <elevatorHandleLocalization>SidewallsHandleLocalization</elevatorHandleLocalization>
+                        <elevatorIsCageMirror>true</elevatorIsCageMirror>
+                        <elevatorCageMirrorLocalization>FrontwallElevatorCageMirrorLocalization</elevatorCageMirrorLocalization>
+                        <elevatorCageMirrorHeight>100</elevatorCageMirrorHeight>
+                        <elevatorIsCageSeat>true</elevatorIsCageSeat>
+                        <elevatorIsCageSeatWithinreach>true</elevatorIsCageSeatWithinreach>
+                        <elevatorIsCageSeatFunctional>false</elevatorIsCageSeatFunctional>
+                        <elevatorHasNotes>string</elevatorHasNotes>
+                        <elevatorHasDescription>string</elevatorHasDescription>
+                        <entryareaWidth>100</entryareaWidth>
+                        <entryareaDepth>100</entryareaDepth>
+                        <entryareaHeightElevation>100</entryareaHeightElevation>
+                        <door1Width>100</door1Width>
+                        <door1Opening>AutomaticDoorOpening</door1Opening>
+                        <door2Width>100</door2Width>
+                        <door2Opening>AutomaticDoorOpening</door2Opening>
+                    </elevator>
+                    <wc>
+                        <wcAccessibility>AccessibleWCMKPO</wcAccessibility>
+                        <wcLocalization>string</wcLocalization>
+                        <wcAccessProvidedBy>string</wcAccessProvidedBy>
+                        <wcCabinAccess>FreelyaccessibleMappableEntityAccess</wcCabinAccess>
+                        <wcCabinLocalization>GentsWCCabinLocalization</wcCabinLocalization>
+                        <wcSwitch>MissingWCSwitch</wcSwitch>
+                        <wcSwitchHeight>100</wcSwitchHeight>
+                        <wcCabinWidth>140</wcCabinWidth>
+                        <wcCabinDepth>100</wcCabinDepth>
+                        <wcFlushingBackHeight>100</wcFlushingBackHeight>
+                        <wcFlushingSideHeight>100</wcFlushingSideHeight>
+                        <wcFlushingSideDistanc>100</wcFlushingSideDistanc>
+                        <wcFlushing>MechanicalWCFlushing</wcFlushing>
+                        <wcFlushingDifficulty>DifficultWCFlushingDifficulty</wcFlushingDifficulty>
+                        <wcHandlesDistance>100</wcHandlesDistance>
+                        <wcBasinLeftDistance>100</wcBasinLeftDistance>
+                        <wcBasinRightDistance>100</wcBasinRightDistance>
+                        <wcBasinBackIndentation>100</wcBasinBackIndentation>
+                        <wcBasinSeatHeight>100</wcBasinSeatHeight>
+                        <wcBasinIsPaperReach>false</wcBasinIsPaperReach>
+                        <wcBasinSpace>BlockedbyfixedWCBasinSpace</wcBasinSpace>
+                        <wcIsChangingdesk>false</wcIsChangingdesk>
+                        <wcIsChangingdeskObstructs>true</wcIsChangingdeskObstructs>
+                        <wcChangingdesk>MobileWCChangingdesk</wcChangingdesk>
+                        <wcIsAlarmbutton>true</wcIsAlarmbutton>
+                        <wcAlarmbuttonTopHeigh>100</wcAlarmbuttonTopHeigh>
+                        <wcAlarmbuttonBottomHeight>100</wcAlarmbuttonBottomHeight>
+                        <wcIsRegularWC>true</wcIsRegularWC>
+                        <wcIsRegularWCBrailleMarking>true</wcIsRegularWCBrailleMarking>
+                        <wcCabinDoorDisposition>LeftBottomWCCabinDisposition</wcCabinDoorDisposition>
+                        <wcCabinWCBasinDisposition>TopRightWCCabinDisposition</wcCabinWCBasinDisposition>
+                        <wcCabinWashBasinDisposition>LeftTopWCCabinDisposition</wcCabinWashBasinDisposition>
+                        <wcHasNotes>string</wcHasNotes>
+                        <wcHasDescription>string</wcHasDescription>
+                        <hallway1Width>100</hallway1Width>
+                        <hallway1Depth>100</hallway1Depth>
+                        <hallway1DoorWidth>100</hallway1DoorWidth>
+                        <hallway1DoorMarking>DoorIsNotMarking</hallway1DoorMarking>
+                        <hallway2Width>100</hallway2Width>
+                        <hallway2Depth>100</hallway2Depth>
+                        <hallway2DoorWidth>100</hallway2DoorWidth>
+                        <hallway2DoorMarking>DoorIsMarking</hallway2DoorMarking>
+                        <handle1Type>FoldingHandleType</handle1Type>
+                        <handle1Height>100</handle1Height>
+                        <handle1Length>100</handle1Length>
+                        <handle2Type>FixedHandleType</handle2Type>
+                        <handle2Height>100</handle2Height>
+                        <handle2Length>100</handle2Length>
+                        <doorWidth>100</doorWidth>
+                        <doorOpeningDirection>InwardsDoorOpeningDirection</doorOpeningDirection>
+                        <doorIsMarking>true</doorIsMarking>
+                        <doorHandlePosition>OutsideHandlePosition</doorHandlePosition>
+                        <washbasinHeight>100</washbasinHeight>
+                        <washbasinUnderpass>SufficientWashbasinUnderpass</washbasinUnderpass>
+                        <washbasinIsHandle>true</washbasinIsHandle>
+                        <washbasinHandleType>HorizontalHandleOrientation</washbasinHandleType>
+                        <washbasinHandleHeight>100</washbasinHandleHeight>
+                        <washbasinHandleLength>100</washbasinHandleLength>
+                        <tapHeight>100</tapHeight>
+                        <tapType>TouchfreeTap</tapType>
+                    </wc>
+                </object>
+            </objects>
+
+        
++ Response 200 (text/csv)
+
+    + Parameters
+        + format = csv  
+            
+    + Body
+    
+            Struktura exportu ve formátu CSV bude kvůli datové náročnosti poskytnuta zájemci na základě vyžádání.
