@@ -14,7 +14,7 @@ Následuje popis zdrojů mapových objektů vztahujících se k *API map příst
 + Parameters
     + locale (required, string, `cs`) ... Jazyk jazykově závislých dat objektů. Možné hodnoty jsou `cs` nebo `en`.
     + format (required, string, `json`) ... Formát výstupu vráceného API. Možné hodnoty jsou `json`, `xml` nebo `csv`.
-    + category (optional, array[string], `[TheatreObjectCategory, BasilicaObjectCategory, GalleryObjectCategory, DefensivecastleObjectCategory, TempleObjectCategory, CathedralObjectCategory, MonasteryObjectCategory, LibraryObjectCategory, ChurchObjectCategory, LorettaObjectCategory, MuseumObjectCategory, PalaceObjectCategory, MonumentObjectCategory, TownhallObjectCategory, SynagogueObjectCategory, FortressObjectCategory, TowerObjectCategory, StatelyhomeObjectCategory, OtherObjectCategory, DefensivecastleStatelyhomeObjectCategory, MuseumGalleryObjectCategory, MuseumLibraryObjectCategory, ChapelObjectCategory]`) ... Kategorie objektu. Hodnota může nabývat 1 až N hodnot z číselníku viz. příklad hodnot. Budou vráceny objekty, které mají přesnou shodu na kategorii.
+    + category (optional, array[string], `[TheatreObjectCategory, BasilicaObjectCategory, GalleryObjectCategory, DefensivecastleObjectCategory, TempleObjectCategory, CathedralObjectCategory, MonasteryObjectCategory, LibraryObjectCategory, ChurchObjectCategory, LorettaObjectCategory, MuseumObjectCategory, PalaceObjectCategory, MonumentObjectCategory, TownhallObjectCategory, SynagogueObjectCategory, FortressObjectCategory, TowerObjectCategory, StatelyhomeObjectCategory, OtherObjectCategory, DefensivecastleStatelyhomeObjectCategory, MuseumGalleryObjectCategory, MuseumLibraryObjectCategory, ChapelObjectCategoryWaterParkObjectCategory, BusStationObjectCategory, BankObjectCategory, BarObjectCategory, PastryObjectCategory, GasStationObjectCategory, FarmObjectCategory, TaxOfficeObjectCategory, StadiumObjectCategory, GuestHouseObjectCategory, HotelObjectCategory, PubObjectCategory, FuneralHallObjectCategory, ObservatoryObjectCategory, HypermarketObjectCategory, InformationCenterObjectCategory, CampObjectCategory, CinemaObjectCategory, ConcertHallObjectCategory, ContactSocialServiceObjectCategory, SwimmingObjectCategory, IndoorSwimmingPoolObjectCategory, SpaHouseObjectCategory, WellnessObjectCategory, PharmacyObjectCategory, DoctorObjectCategory, MedicalEmergencyObjectCategory, DentalEmergencyObjectCategory, AirportObjectCategory, FolkArchitectureObjectCategory, CityHallObjectCategory, KindergartenObjectCategory, MunicipalityObjectCategory, MosqueObjectCategory, HospitalObjectCategory, PolyclinicObjectCategory, MunicipalOfficeObjectCategory, StoreObjectCategory, DepartmentStoreObjectCategory, OpticianShopObjectCategory, BreweryObjectCategory, ResidentialSocialServiceObjectCategory, InsuranceOfficeObjectCategory, PoliceObjectCategory, MetropolitanPoliceObjectCategory, PostOfficeObjectCategory, CarDealerObjectCategory, HarborObjectCategory, RecreationalFacilityObjectCategory, RestaurantObjectCategory, FastFoodObjectCategory, ServiceObjectCategory, SocialOfficeObjectCategory, CourtObjectCategory, SportsFacilityObjectCategory, AdministrativeOfficeObjectCategory, MetroStationObjectCategory, PublicProsecutorObjectCategory, HighSchoolObjectCategory, SupermarketObjectCategory, WeddingHallObjectCategory, SchoolObjectCategory, EmploymentOfficeObjectCategory, PublicToiletObjectCategory, VeterinarySurgeryObjectCategory, ViticultureObjectCategory, TrainStationObjectCategory, CollegeObjectCategory, BasicSchoolObjectCategory, EmbassyObjectCategory, HealthInsuranceCompanyObjectCategory, MedicalSupplyObjectCategory, WinterStadiumObjectCategory, ZooObjectCategory]`) ... Kategorie objektu. Hodnota může nabývat 1 až N hodnot z číselníku viz. příklad hodnot. Budou vráceny objekty, které mají přesnou shodu na kategorii.
     + accessibility (optional, array[string], `[AccessibleObjectMKPO, PartlyAccessibleObjectMKPO, InAccessibleObjectMKPO]`) ... Přístupnost objektu. Hodnota může nabývat 1 až N hodnot z číselníku: `AccessibleObject` = přístupný, `PartlyAccessibleObject` = částečně přístupný, `InAccessibleObject` = nepřístupný. Budou vráceny objekty, které mají přesnou shodu na přístupnost.
     + type (optional, array[string], `[certified, outdated, community]`) ... Typ mapových podkadů. Hodnota může nabývat 1 až N hodnot z číselníku: `certified` = profesionální data, `outdated` = profesionální, ale zastaralá data, `community` = komunitní data. Budou vráceny objekty, které spadají do klasifikace dle předchozího vymezení číselníkové hodnoty.
     + city (optional, string, `Brno`) ... Město nebo obec objektu. Budou vráceny objekty, které mají přesnou shodu na město nebo obec.
@@ -26,9 +26,6 @@ Následuje popis zdrojů mapových objektů vztahujících se k *API map příst
 ### Získání mapových objektů podle filtrů v požadovaném formátu [GET]
 
 + Response 200 (application/json)
-    
-    + Parameters
-        + format = json  
 
     + Body
     
@@ -381,9 +378,6 @@ Následuje popis zdrojů mapových objektů vztahujících se k *API map příst
         
 + Response 200 (application/xml)
 
-    + Parameters
-        + format = xml  
-        
     + Body
     
             <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -728,9 +722,6 @@ Následuje popis zdrojů mapových objektů vztahujících se k *API map příst
         
 + Response 200 (text/csv)
 
-    + Parameters
-        + format = csv  
-            
     + Body
     
             Struktura exportu ve formátu CSV bude kvůli datové náročnosti poskytnuta zájemci na základě vyžádání.
