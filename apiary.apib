@@ -9,13 +9,14 @@ Přístup k API je kvótován vůči IP protistrany a to tak, že se protistrana
 # Group Objekty
 Následuje popis zdrojů mapových objektů vztahujících se k *API map přístupnosti*.
 
-## Filtr objektů [/{locale}/api/v1/objects/{format}?category={category}&accessibility={accessibility}&type={type}&city={city}&city_part={city_part}&region={region}&modified={modified}]
+## Filtr objektů [/{locale}/api/v1/objects/{format}?category={category}&accessibilityType={accessibilityType}&accessibility={accessibility}&type={type}&city={city}&city_part={city_part}&region={region}&modified={modified}]
 
 + Parameters
     + locale (required, string, `cs`) ... Jazyk jazykově závislých dat objektů. Možné hodnoty jsou `cs` nebo `en`.
     + format (required, string, `json`) ... Formát výstupu vráceného API. Možné hodnoty jsou `json`, `xml` nebo `csv`.
     + category (optional, array[string], `[TheatreObjectCategory, BasilicaObjectCategory, GalleryObjectCategory, DefensivecastleObjectCategory, TempleObjectCategory, CathedralObjectCategory, MonasteryObjectCategory, LibraryObjectCategory, ChurchObjectCategory, LorettaObjectCategory, MuseumObjectCategory, PalaceObjectCategory, MonumentObjectCategory, TownhallObjectCategory, SynagogueObjectCategory, FortressObjectCategory, TowerObjectCategory, StatelyhomeObjectCategory, OtherObjectCategory, DefensivecastleStatelyhomeObjectCategory, MuseumGalleryObjectCategory, MuseumLibraryObjectCategory, ChapelObjectCategoryWaterParkObjectCategory, BusStationObjectCategory, BankObjectCategory, BarObjectCategory, PastryObjectCategory, GasStationObjectCategory, FarmObjectCategory, TaxOfficeObjectCategory, StadiumObjectCategory, GuestHouseObjectCategory, HotelObjectCategory, PubObjectCategory, FuneralHallObjectCategory, ObservatoryObjectCategory, HypermarketObjectCategory, InformationCenterObjectCategory, CampObjectCategory, CinemaObjectCategory, ConcertHallObjectCategory, ContactSocialServiceObjectCategory, SwimmingObjectCategory, IndoorSwimmingPoolObjectCategory, SpaHouseObjectCategory, WellnessObjectCategory, PharmacyObjectCategory, DoctorObjectCategory, MedicalEmergencyObjectCategory, DentalEmergencyObjectCategory, AirportObjectCategory, FolkArchitectureObjectCategory, CityHallObjectCategory, KindergartenObjectCategory, MunicipalityObjectCategory, MosqueObjectCategory, HospitalObjectCategory, PolyclinicObjectCategory, MunicipalOfficeObjectCategory, StoreObjectCategory, DepartmentStoreObjectCategory, OpticianShopObjectCategory, BreweryObjectCategory, ResidentialSocialServiceObjectCategory, InsuranceOfficeObjectCategory, PoliceObjectCategory, MetropolitanPoliceObjectCategory, PostOfficeObjectCategory, CarDealerObjectCategory, HarborObjectCategory, RecreationalFacilityObjectCategory, RestaurantObjectCategory, FastFoodObjectCategory, ServiceObjectCategory, SocialOfficeObjectCategory, CourtObjectCategory, SportsFacilityObjectCategory, AdministrativeOfficeObjectCategory, MetroStationObjectCategory, PublicProsecutorObjectCategory, HighSchoolObjectCategory, SupermarketObjectCategory, WeddingHallObjectCategory, SchoolObjectCategory, EmploymentOfficeObjectCategory, PublicToiletObjectCategory, VeterinarySurgeryObjectCategory, ViticultureObjectCategory, TrainStationObjectCategory, CollegeObjectCategory, BasicSchoolObjectCategory, EmbassyObjectCategory, HealthInsuranceCompanyObjectCategory, MedicalSupplyObjectCategory, WinterStadiumObjectCategory, ZooObjectCategory, CultureHouseObjectCategory, AtmObjectCategory, CulturalFacilityObjectCategory, InstitutionObjectCategory, TransportObjectCategory, ElementaryArtSchoolObjectCategory, MedicalFacilityObjectCategory, EducationObjectCategory, LeisureTimeObjectCategory, RegionalOfficeObjectCategory, ExhibitionCentreObjectCategory]`) ... Kategorie objektu. Hodnota může nabývat 1 až N hodnot z číselníku viz. příklad hodnot. Budou vráceny objekty, které mají přesnou shodu na kategorii.
     + accessibility (optional, array[string], `[AccessibleObjectMKPO, PartlyAccessibleObjectMKPO, InAccessibleObjectMKPO]`) ... Přístupnost objektu. Hodnota může nabývat 1 až N hodnot z číselníku: `AccessibleObject` = přístupný, `PartlyAccessibleObject` = částečně přístupný, `InAccessibleObject` = nepřístupný. Budou vráceny objekty, které mají přesnou shodu na přístupnost.
+    + accessibilityType (optional, string, `default`) ... Typ přístupnosti objektu. Možné hodnoty jsou `default` (hendikepovaní), `pram` (rodiče s dětmi), `seniors` (senioři)
     + type (optional, array[string], `[certified, outdated, community]`) ... Typ mapových podkadů. Hodnota může nabývat 1 až N hodnot z číselníku: `certified` = profesionální data, `outdated` = profesionální, ale zastaralá data, `community` = komunitní data. Budou vráceny objekty, které spadají do klasifikace dle předchozího vymezení číselníkové hodnoty.
     + city (optional, string, `Brno`) ... Město nebo obec objektu. Budou vráceny objekty, které mají přesnou shodu na město nebo obec.
     + city_part (optional, string, `Bohunice`) ... Městská část objektu. Budou vráceny objekty, které mají přesnou shodu na městskou část.
@@ -42,6 +43,8 @@ Následuje popis zdrojů mapových objektů vztahujících se k *API map příst
                 "description": "string",
                 "license": "default",
                 "accessibility": "PartlyAccessibleObjectMKPO",
+                "accessibilityPram": "AccessibleObjectMKPO",
+                "accessibilitySeniors": "PartlyAccessibleObjectMKPO",
                 "organizationIc": "string",
                 "organizationName": "string",
                 "mappingDate": "2014-09-18T23:18:33",
@@ -395,6 +398,8 @@ Následuje popis zdrojů mapových objektů vztahujících se k *API map příst
                     <description>string</description>
                     <license>default</license>
                     <accessibility>PartlyAccessibleObjectMKPO</accessibility>
+                    <accessibilityPram>AccessibleObjectMKPO</accessibilityPram>
+                    <accessibilitySeniors>PartlyAccessibleObjectMKPO</accessibilitySeniors>
                     <organizationIc>string</organizationIc>
                     <organizationName>string</organizationName>
                     <mappingDate>2014-09-19T01:18:33</mappingDate>
